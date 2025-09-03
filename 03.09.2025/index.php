@@ -21,8 +21,13 @@
         settype($zmienna,"string");
         echo gettype($zmienna)."<br />";
         //sprawdzenie czy zmienna jest typu int
-    if (is_int($zmienna))
-        print("<br> a4 jest liczbą całkowitą(integer)");
+    if (is_int($zmienna)){
+        print("<br> zmienna jest liczbą całkowitą(integer)");
+    }else{
+        print("<br> zmienna nie jest liczbą całkowitą(integer)");
+    }
+    echo 'cos \' tam ';
+    echo "oto zmienna $zmienna";
     ?>
 
 

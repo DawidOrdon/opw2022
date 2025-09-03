@@ -11,7 +11,18 @@
     <?php
 //    wypisywanie na stronie
         echo"witaj swiecie <br />";
-        print"witaj swiecie";
+        print"witaj swiecie"."<br />";
+
+        //zmienne
+        $zmienna=43;
+        //okreslenie typu zmiennej
+        echo gettype($zmienna)."<br />";
+        //zmiana typu zmiennej
+        settype($zmienna,"string");
+        echo gettype($zmienna)."<br />";
+        //sprawdzenie czy zmienna jest typu int
+    if (is_int($zmienna))
+        print("<br> a4 jest liczbą całkowitą(integer)");
     ?>
 
 

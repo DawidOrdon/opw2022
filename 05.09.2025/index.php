@@ -65,6 +65,27 @@
         print_r($wielo);
         echo "</pre>";
 
+
+        $i=10;
+        switch ($i){
+            case 0:{
+                echo 0;
+            }
+            case 1:{
+                echo 1;
+            }
+            case 2:{
+                echo 2;
+                break;
+            }
+            case 3:{
+                echo 3;
+            }
+            default:{
+                echo "inne";
+            }
+        }
+
     ?>
 </body>
 </html>

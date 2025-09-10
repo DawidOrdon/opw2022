@@ -26,12 +26,7 @@
     <input type="reset" value="reset">
     <input type="submit" value="wyslij">
 </form>
-    <table>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-        </tr>
-    </table>
+
 <?php
     $error=0;
     if(!empty($_POST['imie'])&&strlen($_POST['imie'])>2){
@@ -52,7 +47,15 @@
         $error=1;
     }
     if($error==0){
-        echo $imie." ".$nazwisko." ".$wiek;
+        echo"
+            <table>
+                <tr>
+                    <td>$imie</td>
+                    <td>$nazwisko</td>
+                    <td>$wiek</td>
+                </tr>
+            </table>";
+
     }else{
         echo "podales zle dane";
     }

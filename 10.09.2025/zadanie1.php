@@ -15,38 +15,42 @@
     <label for="odejmij">odejmij</label><input type="radio" name="co" value="2" id="odejmij">
     <label for="potega">potega</label><input type="radio" name="co" value="3" id="potega">
     <input type="submit" value="oblicz">
-    
+
 </form>
 
 <?php
 
-    if(!empty($_POST["liczba1"])&&is_numeric($_POST["liczba1"])&&$_POST["liczba1"]>0){
-        $liczba1=$_POST["liczba1"];
-    }else{
-        echo "podaj prawidlowa wartosc nr1<br />";
-    }
-    if(!empty($_POST["liczba2"])&&is_numeric($_POST["liczba2"])&&$_POST["liczba2"]>0){
-        $liczba1=$_POST["liczba2"];
-    }else{
-        echo "podaj prawidlowa wartosc nr2<br />";
-    }
+if (!empty($_POST["liczba1"]) && is_numeric($_POST["liczba1"]) && $_POST["liczba1"] > 0) {
+    $liczba1 = $_POST["liczba1"];
+} else {
+    echo "podaj prawidlowa wartosc nr1<br />";
+}
+if (!empty($_POST["liczba2"]) && is_numeric($_POST["liczba2"]) && $_POST["liczba2"] > 0) {
+    $liczba1 = $_POST["liczba2"];
+} else {
+    echo "podaj prawidlowa wartosc nr2<br />";
+}
 
-    if(isset($_POST["co"])){
-        switch ($_POST["co"]) {
-            case 1:{
+if (isset($_POST["co"])) {
+    switch ($_POST["co"]) {
+        case 1:
+        {
 
-            }
-            case 2:{
+        }
+        case 2:
+        {
 
-            }
-            case 3:{
+        }
+        case 3:
+        {
 
-            }
-            default:{
-                echo "podaj prawidlowa wartosc<br />";
-            }
+        }
+        default:
+        {
+            echo "podaj prawidlowa wartosc<br />";
         }
     }
+}
 
 ?>
 </body>

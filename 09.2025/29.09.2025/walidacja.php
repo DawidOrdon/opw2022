@@ -13,6 +13,9 @@
     <input type="number" name="liczba2" id="">
     <input type="text" name="text" id="">
     <input type="submit" value="sprawdz">
+    <input type="text" name="" id=""><input type="text" name="" id=""><input type="text" name="" id=""><input
+            type="text" name="" id="">
+    <>
 </form>
 <?php
     function check_number($name, $min, $frytki="frytki")

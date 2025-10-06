@@ -9,54 +9,74 @@
 </head>
 <body>
 <form action="" method="post">
-    <label for="a1">Wyraz pierwszy</label><input type="number" name="a1" id="a1">
-    <label for="r">R</label><input type="number" name="r" id="r">
-    <label for="n">Wyraz końcowy</label><input type="number" name="n" id="n">
-    <button name="co" value="n-ty">Oblicz</button>
+    <table>
+        <tr>
+            <td><label for="a1">Pierwsz wpłata</label></td>
+            <td><input type="number" name="a1" id="a1" value="<?php echo $_POST['a1']!=null ? $_POST['a1'] : "" ?>"></td>
+        </tr>
+        <tr>
+            <td><label for="va">miesięczne dopłaty</label></td>
+            <td><input type="number" name="va" id="va" value="<?php echo $_POST['va']!=null ? $_POST['va'] : "" ?>"></td>
+        </tr>
+        <tr>
+            <td><label for="q">szacowany procent w skali roku</label></td>
+            <td><input type="number" name="q" id="q" value="<?php echo $_POST['q']!=null ? $_POST['q'] : "" ?>"></td>
+        </tr>
+        <tr>
+            <td><label for="n">ile lat chcesz oszczędzać</label></td>
+            <td><input type="number" name="n" id="n" value="<?php echo $_POST['n']!=null ? $_POST['n'] : "" ?>"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button name="co" value="n-ty" style="width: 100%">Oblicz</button>
+            </td>
+        </tr>
+    </table>
+
+
+
+
 </form>
-<form action="" method="post">
-    <label for="el1">a1</label><input type="number" name="a1" id="el1">
-    <label for="el2">a2</label><input type="number" name="a2" id="el2">
-    <label for="el3">a3</label><input type="number" name="a3" id="el3">
-    <button name="co" value="sprawdz">sprawdz</button>
-</form>
+
 <?php
-    function ciag($a1, $r, $n)
+    function ciag($a1, $va , $q, $n)
     {
-        $nty=$a1+($r*($n-1));
-        return $nty;
-    }
-    function sprawdz($a1, $a2, $a3){
-        if(($a1+$a3)/2==$a2){
-            return "to są elementy ciągu";
-        }else{
-            return "to nie są elementy ciągu";
+        $wartosc=$a1;
+        for($i=0;$i<$n*12;$i++){
+            $wartosc=($wartosc+$va)*$q;
         }
+        return $wartosc;
     }
-    if($_POST['co']=='n-ty'){
-        if(!empty($_POST['a1'])&&
-            !empty($_POST['r'])&&
-            !empty($_POST['n'])&&
-            is_numeric($_POST['a1'])&&
-            is_numeric($_POST['r'])&&
-            is_numeric($_POST['n'])&&
-            $_POST['n']>1){
-            $a1=$_POST['a1'];
-            $r=$_POST['r'];
-            $n=$_POST['n'];
-            echo ciag($a1,$r,$n);
+    if(!empty($_POST['co'])){
+        if($_POST['co']=='n-ty'){
+            if(!empty($_POST['a1'])&&
+                !empty($_POST['q'])&&
+                !empty($_POST['n'])&&
+                !empty($_POST['va'])&&
+                is_numeric($_POST['a1'])&&
+                is_numeric($_POST['q'])&&
+                is_numeric($_POST['n'])&&
+                is_numeric($_POST['va'])&&
+                $_POST['n']>=0&&
+                $_POST['a1']>=0&&
+                $_POST['va']>=0&&
+                $_POST['q']>=0){
+                $a1=$_POST['a1'];
+                $va=$_POST['va'];
+                //miesieczne oprocentowanie
+                $q=1+($_POST['q']/1200);
+                $n=$_POST['n'];
+                $wplaty=$a1+($va*$n*12);
+                $stan = round(ciag($a1,$va,$q,$n),2);
+                $zysk=round(($stan/$wplaty*100),2);
+                echo "wplacilas/es: ".$wplaty." zł <br />";
+                echo "stan konta po $n latach: $stan <br />";
+                echo "zarobiłas/es $zysk %<br />";
+            }
         }
+
     }
-    if($_POST['co']=='sprawdz'){
-        if(!empty($_POST['a1'])&&
-            !empty($_POST['a2'])&&
-            !empty($_POST['a3'])&&
-            is_numeric($_POST['a1'])&&
-            is_numeric($_POST['a2'])&&
-            is_numeric($_POST['a3'])){
-            echo sprawdz($_POST['a1'],$_POST['a2'],$_POST['a3']);
-        }
-    }
+
+
 
 ?>
 </body>

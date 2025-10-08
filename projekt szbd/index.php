@@ -3,6 +3,9 @@ session_start();
     if(!empty($_POST['baza'])){
         $_SESSION['baza'] = $_POST['baza'];
     }
+    if(!empty($_POST['zapytanie'])){
+        $_SESSION['zapytanie'] = $_POST['zapytanie'];
+    }
 ?>
 <!doctype html>
 <html lang="en">
@@ -16,7 +19,11 @@ session_start();
         .form, .tabele{
             display: block;
             float: left;
-            margin-right: 20px;
+            padding-right: 20px;
+            width: 20%;
+        }
+        .result{
+            width: 50%;
         }
 
     </style>
@@ -45,7 +52,9 @@ session_start();
                     </td>
                 </tr>";
     }
-    echo "</table></form>";
+    ?>
+    </table></form>
+        <?php
     if(isset($_SESSION['baza'])) {
         echo"<div class='tabele'>";
         echo"tabele dla bazy: {$_SESSION['baza']} <br />";
@@ -57,12 +66,40 @@ session_start();
         while($row=$result->fetch_array()){
             echo $row[0]."<br />";
         }
+        echo"</div>";
         ?>
-        <div>
-            <form method='post' class='form'>
+
+        <div class="form result">
+            <form method='post'>
                 <textarea name='zapytanie'></textarea> <br />
                 <input type='submit' value='wyslij zapytanie'>
             </form>
+            <?php
+                if(!empty($_SESSION['zapytanie'])){
+                    $sql=$_SESSION['zapytanie'];
+                    $query=$db->prepare($sql);
+                    $query->execute();
+                    $result=$query->get_result();
+//                    print_r($result);
+                    if($result->field_count>0){
+                        $row = $result->fetch_assoc();
+                        echo "<table><tr>";
+                        foreach ($row as $key=>$value){
+                            echo "<th>{$key}</th>";
+                        }
+                        echo"</tr><tr>";
+                        foreach ($row as $key=>$value){
+                            echo "<td>{$value}</td>";
+                        }
+                        echo"</tr>";
+                    }
+            ?>
+            <div>
+
+            </div>
+            <?php
+                }
+            ?>
         </div>
         <?php
     }

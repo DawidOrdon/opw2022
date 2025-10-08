@@ -57,11 +57,14 @@ session_start();
         while($row=$result->fetch_array()){
             echo $row[0]."<br />";
         }
-        echo"</div>";
-        echo"<form method='post' class='form'>";
-        echo"<textarea name='zapytanie'></textarea> <br />";
-        echo"<input type='submit' value='wyslij zapytanie'>";
-        echo"</div>";
+        ?>
+        <div>
+            <form method='post' class='form'>
+                <textarea name='zapytanie'></textarea> <br />
+                <input type='submit' value='wyslij zapytanie'>
+            </form>
+        </div>
+        <?php
     }
 
 ?>

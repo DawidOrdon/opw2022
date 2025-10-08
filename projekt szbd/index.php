@@ -35,6 +35,7 @@ session_start();
         }
         .result{
             padding: 1%;
+            max-width: 60%;
 
         }
         button{

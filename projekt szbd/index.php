@@ -16,44 +16,74 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        .form, .tabele{
-            display: block;
+        body{
+            background-color: #f1f1f1;
+            height: 100vh !important;
+            margin: 0;
+            padding: 0;
+        }
+        .left, .tabele, .result{
             float: left;
-            padding-right: 20px;
-            width: 20%;
+            border-radius: 10px;
+            background-color: #fafafa;
+            margin: 10px;
+            padding: 10px;
+        }
+        .bazy{
+            overflow: auto;
+            height: 90vh !important;
         }
         .result{
-            width: 50%;
-        }
+            padding: 1%;
 
+        }
+        button{
+            width: 100%;
+            background-color: transparent;
+            padding: 4px;
+            border-radius: 6px;
+            border:1px solid black;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: #aaaaaa;
+            color:white;
+            border:1px solid #aaaaaa;
+        }
+        input[type='radio']{
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-<form action="" method="post" class="form">
-    <table>
-        <tr>
-            <td colspan="2"><input type="submit" value="wybierz baze" ></td>
-        </tr>
+<div class="left bazy">
+    <form action="" method="post">
+        <table>
+            <tr>
+                <td colspan="2"><button>wybierz baze</button></td>
+            </tr>
 
-<?php
-    $db=new mysqli("localhost","root","","mysql");
-    $sql='show databases';
-    $query=$db->prepare($sql);
-    $query->execute();
-    $result=$query->get_result();
+    <?php
+        $db=new mysqli("localhost","root","","mysql");
+        $sql='show databases';
+        $query=$db->prepare($sql);
+        $query->execute();
+        $result=$query->get_result();
 
-    while($row=$result->fetch_array()){
-        echo "<tr>
-                    <td>
-                        <input type='radio' name='baza' id='{$row[0]}' value='{$row[0]}'>
-                    </td>
-                    <td>
-                    <label for='{$row[0]}'>{$row[0]}
-                    </td>
-                </tr>";
-    }
-    ?>
-    </table></form>
+        while($row=$result->fetch_array()){
+            echo "<tr>
+                        <td>
+                            <input type='radio' name='baza' id='{$row[0]}' value='{$row[0]}'>
+                        </td>
+                        <td>
+                        <label for='{$row[0]}'>{$row[0]}
+                        </td>
+                    </tr>";
+        }
+        ?>
+        </table>
+    </form>
+</div>
         <?php
     if(isset($_SESSION['baza'])) {
         echo"<div class='tabele'>";
@@ -71,8 +101,8 @@ session_start();
 
         <div class="form result">
             <form method='post'>
-                <textarea name='zapytanie'></textarea> <br />
-                <input type='submit' value='wyslij zapytanie'>
+                <textarea name='zapytanie' style="padding: 5px; min-width: 150px"></textarea> <br />
+                <button>wyslij zapytanie</button>
             </form>
             <?php
                 if(!empty($_SESSION['zapytanie'])){
@@ -81,7 +111,7 @@ session_start();
                     $query->execute();
                     $result=$query->get_result();
 //                    print_r($result);
-                    if($result->field_count>0){
+                    if($result->num_rows>0){
                         $row = $result->fetch_assoc();
                         echo "<table><tr>";
                         foreach ($row as $key=>$value){
@@ -92,6 +122,13 @@ session_start();
                             echo "<td>{$value}</td>";
                         }
                         echo"</tr>";
+                        while ($row = $result->fetch_assoc()){
+                            echo"<tr>";
+                            foreach ($row as $key=>$value){
+                                echo "<td>{$value}</td>";
+                            }
+                            echo"</tr>";
+                        }
                     }
             ?>
             <div>

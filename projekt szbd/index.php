@@ -21,6 +21,7 @@ session_start();
             height: 100vh !important;
             margin: 0;
             padding: 0;
+            
         }
         .left, .tabele, .result{
             float: left;

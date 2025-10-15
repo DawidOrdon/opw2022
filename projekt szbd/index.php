@@ -6,17 +6,25 @@ session_start();
     if(!empty($_POST['zapytanie'])){
         $_SESSION['zapytanie'] = $_POST['zapytanie'];
     }
+    if(!empty($_POST['edit'])){
+        $_SESSION['edit'] = $_POST['edit'];
+    }
     if(isset($_SESSION['baza'])){
         //db po odczytaniu zmiennej odnosnie bazy ale przed 1 zapytaniem
         $db=new mysqli("localhost","root","",$_SESSION['baza']);
     }else{
         $db=new mysqli("localhost","root","");
     }
-
     if(!empty($_POST['newtable'])){
         $sql = "create table {$_POST['newtable']} (id int primary key auto_increment)";
         $query_new = $db->prepare($sql);
         $query_new->execute();
+    }
+    if(!empty($_GET['del'])){
+        $sql = "drop table {$_GET['del']}";
+        $query= $db->prepare($sql);
+        $query->execute();
+        header("Location: index.php");
     }
 ?>
 <!doctype html>
@@ -67,6 +75,23 @@ session_start();
         input[type='radio']{
             cursor: pointer;
         }
+        .result_array td{
+            width: 33%;
+        }
+        .result_array{
+            width: 100%;
+        }
+        .kolumny{
+            border-collapse: collapse;
+            table
+        }
+        .kolumny td, .kolumny th{
+            padding: 6px;
+        }
+        .kolumny tr:nth-child(even) {
+            background-color: #f1f1f1;
+        }
+
     </style>
 </head>
 <body>
@@ -111,8 +136,40 @@ session_start();
         $query=$db->prepare($sql);
         $query->execute();
         $result=$query->get_result();
+        echo"<table class='result_array'>";
         while($row=$result->fetch_array()){
-            echo $row[0]."<br />";
+            echo "<tr><td>$row[0]</td><td><form method='post'><input type='hidden' name='edit' value='$row[0]'><button>edit</button></form></td><td><a href='?del=$row[0]'><button>del</button></a></td></tr>";
+        }
+        echo"</table>";
+
+        if(isset($_SESSION['edit'])){
+            $sql='show columns from '.$_SESSION['edit'];
+            $query=$db->prepare($sql);
+            $query->execute();
+            $result=$query->get_result();
+            echo"<table class='kolumny'>
+                    <tr>
+                        <th>nazwa</th>
+                        <th>typ</th>
+                        <th>czy null</th>
+                        <th>klucz</th>
+                        <th>wartosc domyslna</th>
+                        <th>dodatkowe informacje</th>
+                    </tr>";
+            echo"<pre>";
+            while($row=$result->fetch_object()){
+                echo"<tr>
+                        <td>$row->Field</td>
+                        <td>$row->Type</td>
+                        <td>".($row->Null=='NO'?'NIE':'TAK')."</td>
+                        <td>".($row->Key=='PRI'?'główny':'obcy')."</td>
+                        <td>$row->Default</td>
+                        <td>$row->Extra</td>
+                    </tr>";
+//                print_r($row);
+            }
+            echo"</pre>";
+            echo"</table>";
         }
         echo"</div>";
         ?>

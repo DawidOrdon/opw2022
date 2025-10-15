@@ -15,10 +15,8 @@ session_start();
 
     if(!empty($_POST['newtable'])){
         $sql = "create table {$_POST['newtable']} (id int primary key auto_increment)";
-        echo $sql;
         $query_new = $db->prepare($sql);
         $query_new->execute();
-        print_r($query_new->get_result());
     }
 ?>
 <!doctype html>
@@ -108,9 +106,6 @@ session_start();
                 <input type='text' name='newtable' placeholder='nazwa tabeli' style='width: 96% '>
                 <button>dodaj</button>
             </form>";
-        if(isset($query_new)){
-            print_r($query_new);
-        }
         $db=new mysqli("localhost","root","",$_SESSION['baza']);
         $sql='show tables';
         $query=$db->prepare($sql);

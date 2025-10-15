@@ -6,6 +6,20 @@ session_start();
     if(!empty($_POST['zapytanie'])){
         $_SESSION['zapytanie'] = $_POST['zapytanie'];
     }
+    if(isset($_SESSION['baza'])){
+        //db po odczytaniu zmiennej odnosnie bazy ale przed 1 zapytaniem
+        $db=new mysqli("localhost","root","",$_SESSION['baza']);
+    }else{
+        $db=new mysqli("localhost","root","");
+    }
+
+    if(!empty($_POST['newtable'])){
+        $sql = "create table {$_POST['newtable']} (id int primary key auto_increment)";
+        echo $sql;
+        $query_new = $db->prepare($sql);
+        $query_new->execute();
+        print_r($query_new->get_result());
+    }
 ?>
 <!doctype html>
 <html lang="en">
@@ -66,7 +80,7 @@ session_start();
             </tr>
 
     <?php
-        $db=new mysqli("localhost","root","","mysql");
+
         $sql='show databases';
         $query=$db->prepare($sql);
         $query->execute();
@@ -90,6 +104,13 @@ session_start();
     if(isset($_SESSION['baza'])) {
         echo"<div class='tabele'>";
         echo"tabele dla bazy: {$_SESSION['baza']} <br />";
+        echo"<form method='post'>
+                <input type='text' name='newtable' placeholder='nazwa tabeli' style='width: 96% '>
+                <button>dodaj</button>
+            </form>";
+        if(isset($query_new)){
+            print_r($query_new);
+        }
         $db=new mysqli("localhost","root","",$_SESSION['baza']);
         $sql='show tables';
         $query=$db->prepare($sql);
@@ -107,37 +128,44 @@ session_start();
                 <button>wyslij zapytanie</button>
             </form>
             <?php
-                if(!empty($_SESSION['zapytanie'])){
-                    $sql=$_SESSION['zapytanie'];
-                    $query=$db->prepare($sql);
+//            wysylanie zapytan
+            try{
+                if(!empty($_SESSION['zapytanie'])) {
+                    $sql = $_SESSION['zapytanie'];
+                    $query = $db->prepare($sql);
                     $query->execute();
-                    $result=$query->get_result();
+                    $result = $query->get_result();
 //                    print_r($result);
-                    if($result->num_rows>0){
+                    if ($result->num_rows > 0) {
                         $row = $result->fetch_assoc();
                         echo "<table><tr>";
-                        foreach ($row as $key=>$value){
+                        foreach ($row as $key => $value) {
                             echo "<th>{$key}</th>";
                         }
-                        echo"</tr><tr>";
-                        foreach ($row as $key=>$value){
+                        echo "</tr><tr>";
+                        foreach ($row as $key => $value) {
                             echo "<td>{$value}</td>";
                         }
-                        echo"</tr>";
-                        while ($row = $result->fetch_assoc()){
-                            echo"<tr>";
-                            foreach ($row as $key=>$value){
+                        echo "</tr>";
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            foreach ($row as $key => $value) {
                                 echo "<td>{$value}</td>";
                             }
-                            echo"</tr>";
+                            echo "</tr>";
                         }
                     }
+
+
             ?>
             <div>
 
             </div>
             <?php
                 }
+            }catch(Exception $e){
+                echo $e->getMessage();
+            }
             ?>
         </div>
         <?php

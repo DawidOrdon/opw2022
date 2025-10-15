@@ -12,8 +12,9 @@
 
         $db = new mysqli("localhost", "root", "", "opw2022");
 
-        $sql="SELECT * FROM users";
+        $sql="SELECT * FROM users where first_name like ? ? ? ?";
         $query=$db->prepare($sql);
+        $query->bind_param('ssss',$_GET['name'],$_GET['name'],$_GET['name']);
         $query->execute();
         $result=$query->get_result();
         print_r($result);

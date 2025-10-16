@@ -1,6 +1,11 @@
 <?php
 session_start();
+
     if(!empty($_POST['baza'])){
+        unset($_SESSION['zapytanie']);
+        unset($_SESSION['edit']);
+        unset($_SESSION['newtable']);
+        unset($_SESSION['del']);
         $_SESSION['baza'] = $_POST['baza'];
     }
     if(!empty($_POST['zapytanie'])){
@@ -141,12 +146,59 @@ session_start();
             echo "<tr><td>$row[0]</td><td><form method='post'><input type='hidden' name='edit' value='$row[0]'><button>edit</button></form></td><td><a href='?del=$row[0]'><button>del</button></a></td></tr>";
         }
         echo"</table>";
-
+        //kolumny w tabeli
         if(isset($_SESSION['edit'])){
             $sql='show columns from '.$_SESSION['edit'];
             $query=$db->prepare($sql);
             $query->execute();
             $result=$query->get_result();
+            echo "<form method='post'>
+                    <table>
+                        <tr>
+                            <th>nazwa kolumny</th>
+                            <th>typ danych</th>
+                            <th>null</th>
+                            <th>klucz</th>
+                            <th>domyslna</th>
+                            <th>a_i</th>
+                        </tr>
+                        <tr>
+                            <td><input type='text' name='nazwa' id=''></td>
+                            <td>
+                                <select name='typ' id=''>
+                                    <option value='text'>text</option>
+                                    <option value='int'>int</option>
+                                    <option value='float'>float</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type='checkbox' name='null' >
+                            </td>
+                            <td>
+                                <select name='key' id=''>
+                                    <option></option>
+                                    <option value='primary'>primary</option>
+                                    <option value='secondary'>secondary</option>
+                                    <option value='float'>float</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type='text' name='default' id=''>      
+                            </td>
+                            <td>
+                                <input type='checkbox' name='ai' id=''>
+                            </td>
+                            <td>
+                                <button>dodaj</button>
+                            </td>
+                            
+                        </tr>
+                        
+                        
+                        
+                    </table>
+                    
+                </form>";
             echo"<table class='kolumny'>
                     <tr>
                         <th>nazwa</th>
@@ -162,7 +214,7 @@ session_start();
                         <td>$row->Field</td>
                         <td>$row->Type</td>
                         <td>".($row->Null=='NO'?'NIE':'TAK')."</td>
-                        <td>".($row->Key=='PRI'?'główny':'obcy')."</td>
+                        <td>".($row->Key=='PRI'?'główny':($row->Key=='SEC'?'obcy':''))."</td>
                         <td>$row->Default</td>
                         <td>$row->Extra</td>
                     </tr>";

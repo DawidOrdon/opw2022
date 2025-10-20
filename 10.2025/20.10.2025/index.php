@@ -11,8 +11,14 @@
     <?php
         class Opw
         {
-            public $count=23;
-            public $armed=false;
+            public function __construct($count,$armed)
+            {
+                echo "wlasnie rekrutujesz nowa klase opw";
+                $this->count = $count;
+                $this->armed = $armed;
+            }
+            public $count;
+            public $armed;
 
             public function fire($gun='glock 19')
             {
@@ -27,15 +33,22 @@
             public function reload(){
                 $this->armed=true;
             }
+            public function __destruct(){
+                echo "wysłałeś/aś klase opw na wojne";
+            }
         }
 //        Opw->fire();
-        $opw2022 = new Opw();
+        $opw2022 = new Opw(21,true);
+        $opw2023 = new Opw(24,false);
+
+        unset($opw2023);
         $opw2022->fire();
         $opw2022->reload();
         $opw2022->fire('grot');
         echo "oddzial liczy {$opw2022->count} kadetów";
 //        echo print_r($opw2022);
         print_r($opw2022 instanceof Opw);
+
     ?>
 </body>
 </html>

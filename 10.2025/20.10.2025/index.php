@@ -17,8 +17,8 @@
                 $this->count = $count;
                 $this->armed = $armed;
             }
-            public $count;
-            public $armed;
+            private $count;
+            private $armed;
 
             public function fire($gun='glock 19')
             {
@@ -36,6 +36,21 @@
             public function __destruct(){
                 echo "wysłałeś/aś klase opw na wojne";
             }
+            public function get_count(){
+                return $this->count;
+            }
+            public function get_armed(){
+                return $this->armed;
+            }
+            public function set_armed($armed){
+                if($armed==true or $armed==false){
+                    $this->armed = $armed;
+                }
+
+            }
+            public function set_count($count){
+                $this->count = $count;
+            }
         }
 //        Opw->fire();
         $opw2022 = new Opw(21,true);
@@ -45,7 +60,7 @@
         $opw2022->fire();
         $opw2022->reload();
         $opw2022->fire('grot');
-        echo "oddzial liczy {$opw2022->count} kadetów";
+        echo "oddzial liczy {$opw2022->get_count()} kadetów";
 //        echo print_r($opw2022);
         print_r($opw2022 instanceof Opw);
 

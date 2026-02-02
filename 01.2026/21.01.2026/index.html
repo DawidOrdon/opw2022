@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Js</title>
+</head>
+<body>
+<input type="text" name="" id="input" value="cos">
+<input type="color" name="" id="">
+<button onclick="funkcja('cos')">klik</button>
+<button onclick="funkcja()">zmien kolor</button>
+<p id="para">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus doloremque excepturi illum incidunt libero, molestiae nemo nesciunt veniam voluptatibus? Commodi cumque distinctio explicabo ipsam iure minima possimus ullam veniam, voluptatibus.</p>
+<script src="script.js"></script>
+<script>
+    // const info = prompt('podaj liczbe')
+    // console.log(info)
+    // let potiwerdz = confirm('czy Twoja liczba to: '+info)
+    // alert(potiwerdz)
+    // alert(2+2)
+    // let zmienna = '2'+2
+    // alert(zmienna)
+    const para = document.getElementById('para')
+    console.log(para)
+    para.style.color='red';
+
+    function funkcja(text){
+        alert(text)
+        let input = document.getElementById('input').value
+        para.innerHTML=input
+
+    }
+
+    const element = document.createElement('p')
+    element.innerHTML='tekst w paragrafie'
+    element.style.color='red'
+    element.style.fontSize='48px'
+    para.appendChild(element)
+    // funkcja()
+</script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 50px;
+            height: 50px;
+            float: left;
+            border: 0px solid black;
+        }
+        .clear{
+            clear: both;
+        }
+        .bt{
+            border-top: 2px solid black;
+        }
+        .bl{
+            border-left: 2px solid black;
+        }
+        .br{
+            border-right: 2px solid black;
+        }
+        .bb{
+            border-bottom: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+<div id="div1" class="bb br" onclick="klik(1)"></div>
+<div id="div2" class="bb br bl" onclick="klik(2)"></div>
+<div id="div3" class="bb bl"></div>
+<div id="div4" class="clear bt bb br"></div>
+<div id="div5" class="bt bb bl br"></div>
+<div id="div6" class="bt bb bl"></div>
+<div id="div7" class="clear bt br"></div>
+<div id="div8" class="bt br bl"></div>
+<div id="div9" class="bt bl"></div>
+
+<script>
+    
+    function klik(id){
+        alert(id)
+        if (document.getElementById('div'+id).innerHTML=="X"){
+            alert('klikniete')
+        }else{
+            document.getElementById('div'+id).innerHTML='X'
+        }
+
+    }
+</script>
+</body>
+</html>

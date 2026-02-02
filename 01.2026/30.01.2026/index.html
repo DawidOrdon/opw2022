@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Saper</title>
+    <style>
+        div{
+            background-color: gray;
+            margin: 1px;
+            width: 20px;
+            height: 20px;
+            float:left;
+        }
+    </style>
+</head>
+<body>
+<label for="x">x</label><input type="number" name="x" id="x">
+<label for="y">y</label><input type="number" name="y" id="y">
+<label for="b">Ilośc bomb</label><input type="number" name="b" id="b">
+<button onclick="generate()">Generuj</button>
+<section id="pole"><div style="height: 0;width: 0;"></div></section>
+<script>
+    function generate(){
+        const x = document.getElementById('x').value
+        const y = document.getElementById('y').value
+        const b = document.getElementById('b').value
+        let pole = [];
+        for (let i = 0; i<x;i++){
+            pole[i]=[]
+        }
+        for (let i = 0; i<x;i++){
+            for (let z = 0;z<y;z++){
+                pole[i][z]=0
+            }
+        }
+
+        //bomby
+        if(x*y>b){
+            for(i =0;i<b;i++){
+                let bx=Math.floor(Math.random()*1000%x)
+                let by=Math.floor(Math.random()*1000%y)
+                while(pole[bx][by]!=0){
+                    bx=Math.floor(Math.random()*1000%x)
+                    by=Math.floor(Math.random()*1000%y)
+                }
+                pole[bx][by]="X"
+            }
+        }else{
+            alert('nie ma tyle miejsca')
+        }
+
+        //liczby
+        for (let i = 0; i<x;i++){
+            for (let z = 0;z<y;z++){
+                if(pole[i][z]=="X"){
+                    let gx_min=i-1
+                    let gx_max=i+1
+                    let gy_min=z-1
+                    let gy_max=z+1
+                    if(gx_min<0){
+                        gx_min=0
+                    }
+                    if(gx_max>x-1){
+                        gx_max=x-1
+                    }
+                    if(gy_min<0){
+                        gy_min=0
+                    }
+                    if(gy_max>y-1){
+                        gy_max=y-1
+                    }
+                    console.log("gx_min:"+gx_min+"gx_max:"+gx_max+"gy_min"+gy_min+"gy_max:"+gy_max)
+                    for (let gx = gx_min;gx<=gx_max;gx++){
+                        console.log("nowy")
+                        for(let gy = gy_min;gy<=gy_max;gy++){
+                            console.log("++")
+                            if(pole[gx][gy]!="X"){
+                                console.log('1')
+                                pole[gx][gy]++
+                                console.log('2')
+                            }
+                            console.log('3')
+                        }
+                    }
+                    // alert('na pozycji jest bomba '+i+z)
+                }
+            }
+        }
+
+
+
+
+        console.log(pole)
+        show_plaground(pole)
+    }
+    function show_plaground(pole){
+        for (pol of pole){
+            for (po of pol){
+                const p=document.createElement('div')
+                p.innerHTML=po
+                document.getElementById('pole').appendChild(p)
+            }
+            const p=document.createElement('div')
+            p.style.clear="both"
+            p.style.width="0"
+            p.style.height="0"
+            document.getElementById('pole').appendChild(p)
+        }
+    }
+</script>
+</body>
+</html>

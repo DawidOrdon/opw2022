@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<div id="cos">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam dolorum et facere fugiat, fugit laboriosam laborum laudantium magnam mollitia nam natus necessitatibus nesciunt nisi numquam omnis optio possimus quibusdam.
+</div>
+<input type="text" id="in">
+<input type="color" id="kolor">
+<button onmouseenter="czerwony()" onmouseleave="niebieski()" onclick="sprawdz()">klik</button>
+<script>
+    // alert('cos');
+    // console.log(confirm('potwierdz tak lub nie'))
+    // console.log(prompt('napisz cos do mnie'))
+    document.write('cos')
+
+    div.style.color='red';
+    const element = document.createElement('header')
+    {
+        element.id='surprise';
+        element.style.color='tomato'
+        element.style.backgroundColor='LimeGreen'
+        element.innerHTML='pomidor'
+        element.style.display='inline-block'
+        element.style.borderRadius='5px'
+        element.style.padding='5px'
+    }//style
+
+    div.appendChild(element)
+    function klik() {
+        // console.log(Math.round(Math.random()))
+        // let r = Math.round(Math.random()*1000%255)
+        // let g = Math.round(Math.random()*1000%255)
+        // let b = Math.round(Math.random()*1000%255)
+        // let rgb='RGB('+r+','+g+','+b+')';
+        // console.log(rgb)
+        div.style.color='red';
+    }
+    function klik2() {
+        div.style.color='blue';
+    }
+    const div = document.getElementById('cos')
+    function zmien_kolor(kolor){
+
+        div.style.color=kolor;
+    }
+    function sprawdz(){
+        const kolor = document.getElementById('kolor').value
+        const div = document.getElementById('cos')
+        div.style.color=kolor;
+        const element = document.createElement('input')
+        element.type='number'
+        div.appendChild(element)
+        // div.innerHTML+='<input type="number">'
+    }
+    function czerwony(){
+        const div = document.getElementById('cos')
+        div.style.color="red";
+    }
+    function niebieski(){
+        const div = document.getElementById('cos')
+        div.style.color="blue";
+    }
+</script>
+
+div[class='cos$']
+
+<script src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+        }
+        div, p{
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background-color: #bbbbbb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<p id="result"></p>
+<script>
+    let divs = document.getElementsByTagName('div')
+    for(div of divs){
+        div.addEventListener('mouseenter',function (){
+            document.getElementById('result').innerHTML = this.innerHTML
+        })
+        div.addEventListener('mouseleave',function (){
+            document.getElementById('result').innerHTML = ''
+        })
+    }
+</script>
+</body>
+</html>

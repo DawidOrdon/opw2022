@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<input type="number" name="" id="h">
+<button onclick="gen()">gen</button>
+<div id="result"></div>
+<script>
+    function gen(){
+
+        const h=parseInt(document.getElementById('h').value)
+        const result = document.getElementById('result')
+        if(h%2==1){
+            for (let i =0;i<h+2;i++){
+                result.innerHTML+="o"
+            }
+            result.innerHTML+="<br/>"
+            for (let i = 0; i< Math.round(h/2);i++){
+                result.innerHTML+="o"
+                for (let j = 0;j<i;j++){
+                    result.innerHTML+="&nbsp;"
+                    result.innerHTML+="&nbsp;"
+                }
+                for (let j=0;j<((Math.round(h/2))-i)*2-1;j++){
+                    result.innerHTML+="*"
+                }
+                for (let j = 0;j<i;j++){
+                    result.innerHTML+="&nbsp;"
+                    result.innerHTML+="&nbsp;"
+                }
+                result.innerHTML+="o"
+                result.innerHTML+="<br/>"
+            }
+            for (let i = 1; i< Math.round(h/2);i++){
+                result.innerHTML+="o"
+                for (let j = 0;j<(Math.round(h/2)-1)-i;j++){
+                    result.innerHTML+="&nbsp;"
+                    result.innerHTML+="&nbsp;"
+                }
+                for (let j=1;j<(i+1)*2;j++){
+                    result.innerHTML+="*"
+                }
+                for (let j = 0;j<(Math.round(h/2)-1)-i;j++){
+                    result.innerHTML+="&nbsp;"
+                    result.innerHTML+="&nbsp;"
+                }
+                result.innerHTML+="o"
+                result.innerHTML+="<br/>"
+            }
+            for (let i =0;i<h+2;i++){
+                result.innerHTML+="o"
+            }
+            result.innerHTML+="<br/>"
+        }else{
+            for (let i = 0; i< Math.round(h/2);i++){
+                for (let j = 0;j<i;j++){
+                    result.innerHTML+="&nbsp;"
+                    result.innerHTML+="&nbsp;"
+                }
+                for (let j=0;j<((Math.round(h/2))-i)*2;j++){
+                    result.innerHTML+="*"
+                }
+                result.innerHTML+="<br/>"
+            }
+            for (let i = 1; i< Math.round(h/2);i++){
+                for (let j = 0;j<(Math.round(h/2))-i-1;j++){
+                    result.innerHTML+="&nbsp;"
+                    result.innerHTML+="&nbsp;"
+                }
+                for (let j=0;j<(i+1)*2;j++){
+                    result.innerHTML+="*"
+                }
+                result.innerHTML+="<br/>"
+            }
+        }
+    }
+</script>
+</body>
+</html>

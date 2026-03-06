@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="number" name="" id="ile">
+    <button onclick="generate()">generuj</button>
+    <div id="wynik"></div>
+    <script>
+        function generate(){
+            let ile = parseInt(document.getElementById('ile').value)
+            let wynik = document.getElementById('wynik')
+            wynik.innerHTML = ''
+            for(let i=1; i<=ile; i++){
+                // wynik.innerHTML += "iteracja " + i + ':'
+                for (let j = 0; j<=ile-i;j++){
+                    wynik.innerHTML += "&nbsp;"
+                    wynik.innerHTML += "&nbsp;"
+                }
+                for(let j=0;j<i;j++){
+                    wynik.innerHTML += '*'
+                }
+                wynik.innerHTML += '<br>'
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+<div id="p1"></div>
+<div id="p2"></div>
+<div id="p3"></div>
+<div id="p4"></div>
+<div id="p5"></div>
+<button onclick="next()">next</button>
+<script>
+    // class pion{
+    //     constructor(kolor) {
+    //         this.kolor=kolor
+    //         this.last=1
+    //
+    //     }
+    // }
+    // pionek1=pion('red')
+    let pionek = document.createElement('p')
+    pionek.id='pion1'
+    pionek.innerHTML='cos'
+    pionek.setAttribute('last',1)
+    document.getElementById('p1').appendChild(pionek)
+    console.log(pionek)
+    function next(){
+        document.getElementById("p"+pionek.getAttribute('last')).removeChild(pionek)
+        pionek.setAttribute('last', parseInt(pionek.getAttribute('last'))+1)
+
+        document.getElementById("p"+pionek.getAttribute('last')).appendChild(pionek)
+    }
+
+</script>
+</body>
+</html>

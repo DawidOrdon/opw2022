@@ -51,6 +51,10 @@ $db = new mysqli('localhost', 'root', '', 'komisarjat');
             <td><input type="number" name="wzrost" step="0.01" id="wzrost"></td>
         </tr>
         <tr>
+            <td><label for="data">Data narodzin psa:</label></td>
+            <td><input type="date" name="data" step="0.01" id="data"></td>
+        </tr>
+        <tr>
             <td><label for="box">Box</label></td>
             <td><select name="box" id="box">
                     <?php
@@ -67,6 +71,21 @@ $db = new mysqli('localhost', 'root', '', 'komisarjat');
         <tr>
             <td colspan="2"><input type="submit" value="dodaj psa" style="width: 100%"></td>
         </tr>
+        <?php
+            if(isset($_SESSION['message'])) {
+                if ($_SESSION['type_message'] == "error") {
+                    $color = 'red';
+                } else if ($_SESSION['type_message'] == "success") {
+                    $color = 'green';
+                }
+                echo "<tr>
+                        <td colspan='2' style='color: {$color}'>{$_SESSION['message']}</td>
+                    </tr>";
+                unset($_SESSION['message']);
+            }
+        ?>
+
+
     </table>
 </form>
 </body>

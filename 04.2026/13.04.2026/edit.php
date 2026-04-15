@@ -19,7 +19,8 @@ $row = $result->fetch_object();
     <title>Document</title>
 </head>
 <body>
-<form action="./new_dog.php" method="post">
+<form action="./edit_dog.php" method="post">
+    <input type="hidden" name="id" value="<?php echo $row->pies_id ?>">
     <table>
         <tr>
             <td><label for="imie">Imie psa:</label></td>
@@ -55,6 +56,7 @@ $row = $result->fetch_object();
         </tr>
         <tr>
             <td><label for="box">Box</label></td>
+            <input type="hidden" name="old_box" value="<?php echo $row->box_id; ?>">
             <td><select name="box" id="box">
                     <?php
                     $sql = "SELECT * FROM boxy where wolne>0";
@@ -69,7 +71,7 @@ $row = $result->fetch_object();
                 </select></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="dodaj psa" style="width: 100%"></td>
+            <td colspan="2"><input type="submit" value="edytuj psa" style="width: 100%"></td>
         </tr>
         <?php
         if(isset($_SESSION['message'])) {

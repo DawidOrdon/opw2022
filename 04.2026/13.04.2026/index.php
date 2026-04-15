@@ -120,6 +120,7 @@ $db = new mysqli('localhost', 'root', '', 'komisarjat');
         echo "<td>{$row->narodziny}</td>";
         echo "<td>{$row->box_typ} max:{$row->wielkosc} wolne:{$row->wolne}</td>";
         echo "<td><a href='delete.php?id={$row->id}'><button>usuń</button></a></td>";
+        echo "<td><a href='edit.php?id={$row->id}'><button>edytuj</button></a></td>";
         echo "</tr>";
     }
 

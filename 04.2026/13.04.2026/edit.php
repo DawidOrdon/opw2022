@@ -1,12 +1,10 @@
 <?php
- var_dump($_GET);
 session_start();
 $db = new mysqli('localhost', 'root', '', 'komisarjat');
-$sql = 'DELETE FROM psy where pies_id=?';
+$sql= "SELECT * FROM psy where pies_id = ?";
 $query = $db->prepare($sql);
 $query->bind_param('i', $_GET['id']);
 $query->execute();
-$_SESSION['message'] = "Usunięto psa";
-$_SESSION['type_message'] = "error";
-header('Location: index.php');
+$result = $query->get_result();
+var_dump($result->fetch_object());
 ?>
